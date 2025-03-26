@@ -1,0 +1,43 @@
+@import "./Reset.css";
+
+@font-face {
+font-family: "Chamran";
+src:url("./fonts/A-Chamran/Chamran.ttf") format("ttf");
+}
+
+@font-face {
+font-family: "Vazirmatn-light";
+src:url("./fonts/A-Vazirmatn/Vazirmatn-Light.ttf") format("ttf");
+}
+
+
+
+
+
+:root {
+    --color-primary: #007bff;
+    --color-secondary: #6c757d;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-info: #17a2b8;
+    --color-light: #f8f9fa;
+    --color-dark: #343a40;
+    --color-white: #fff;
+    --color-white-smoke: #f8f9fa;
+    --color-black: #000;
+    --color-grey: #6c757d;
+}
+
+*,body,html {
+   font-family: "Chamran","Vazirmatn-light"; 
+}
+
+body {
+    background-color: var(--color-white-smoke);
+}
+
+*,input,button {
+    border: none;
+    outline: none;
+}
