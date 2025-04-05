@@ -1,13 +1,13 @@
 import React from "react";
 import "./Sidebar.css";
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
-import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
-import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
-import PercentOutlinedIcon from '@mui/icons-material/PercentOutlined';
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import PercentOutlinedIcon from "@mui/icons-material/PercentOutlined";
 
-
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
@@ -16,41 +16,40 @@ export default function Sidebar() {
         <h1 className="sidebar-title">به داشبورد خودش امدید</h1>
         <ul className="sidebar-list">
           <li className="sidebar-list-item main">
-            <icon className="icon">
+            <Link to="/" >       
                 <HomeOutlinedIcon />
-            </icon>
-            صفحه اصلی
+              صفحه اصلی
+            </Link>
           </li>
           <li className="sidebar-list-item main">
-            <icon className="icon">
-            <CategoryOutlinedIcon />
-
-            </icon>
-            محصولات
+            <Link to="/products" >   
+                <CategoryOutlinedIcon />  
+              محصولات
+            </Link>
           </li>
           <li className="sidebar-list-item main">
-            <icon className="icon">
+            <Link to="/comments" >
                 <ForumOutlinedIcon />
-            </icon>
-            کامنت ها
+              کامنت ها
+            </Link>
           </li>
           <li className="sidebar-list-item main">
-            <icon className="icon">
+            <Link to="/users">
                 <GroupOutlinedIcon />
-            </icon>
-            کاربران
+              کاربران
+            </Link>
           </li>
           <li className="sidebar-list-item main">
-            <icon className="icon">
-            <ShoppingCartOutlinedIcon />
-            </icon>
-            سفارشات
+            <Link to="/shoppingcart">
+                <ShoppingCartOutlinedIcon />
+              سفارشات
+            </Link>
           </li>
           <li className="sidebar-list-item main">
-            <icon className="icon">
-           < PercentOutlinedIcon/>
-            </icon>
-            تخفیف ها
+            <Link to="/offers">
+                <PercentOutlinedIcon />
+              تخفیف ها
+            </Link>
           </li>
         </ul>
       </div>

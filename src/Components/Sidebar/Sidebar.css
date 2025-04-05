@@ -49,6 +49,7 @@
 }
 .sidebar-list-item {
     display: flex;
+    flex-direction: row;
   font-size: 18px;
   padding: 0.3rem 0.5rem;
   width: 100%;
@@ -56,10 +57,14 @@
   cursor: pointer;
   border-radius: 6px;
 }
-.sidebar-list-item .icon {
+
+.sidebar-list-item a {
     display: flex;
-    align-items: center;
-    height: 100%;
+  text-align: center;
+}
+.sidebar-list-item svg {
+   display: inline-block;
+   height: 100%;
   margin-left: 1rem;
 }
 
