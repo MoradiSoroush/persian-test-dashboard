@@ -7,10 +7,10 @@ import routes from './routes';
 
 
 function App() {
-
+  
   let router = useRoutes(routes)
+  
 
-  console.log(router)
   return (
     <div className="App">
       <Sidebar />
@@ -20,6 +20,7 @@ function App() {
       </div>
     </div>
   );
+ 
 }
 
 export default App;

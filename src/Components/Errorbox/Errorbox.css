@@ -1,0 +1,10 @@
+.error-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    width: 100%;
+
+}

@@ -16,6 +16,7 @@ src:url("./fonts/A-Vazirmatn/Vazirmatn-Light.ttf") format("ttf");
 
 :root {
     --color-primary: #007bff;
+    --color-primary-dark: #0065d0;
     --color-secondary: #6c757d;
     --color-success: #28a745;
     --color-danger: #dc3545;
