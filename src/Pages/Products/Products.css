@@ -1,69 +1,86 @@
 .products-wrapper {
- 
 }
 .products-container {
-
 }
-.products-container h1{
-   text-align: start;
-    margin-top: 1rem; 
+.products-container h1 {
+  text-align: start;
+  margin-top: 1rem;
 }
 .add-new-product-form__container {
-      background-color: #fff;
-       padding: 0.5rem;
-       border-radius: 12px;
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 12px;
 }
 .add-new-product-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-row-gap:10px;
-    grid-column-gap:10px ;
-    border-radius: 12px;
-   
-  
-    
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  border-radius: 12px;
 }
 .add-new-product-form .form-group {
-    width: 100%;
-
+  width: 100%;
 }
 .add-new-product-form .form-group input,
-.add-new-product-form .form-group textarea
-{
-    width: 100%;
-    padding: 0.5rem;
-    background-color:#ededed;
-    border-radius: 8px;
+.add-new-product-form .form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #ededed;
+  border-radius: 8px;
 }
 .add-new-product-form .form-group input::placeholder,
-.add-new-product-form .form-group textarea::placeholder{
-padding: 1rem;
-color: #282828;
+.add-new-product-form .form-group textarea::placeholder {
+  padding: 1rem;
+  color: #282828;
 }
 #product-description {
-    width: 100%;
-    resize: none;
-    height: 150px;
+  width: 100%;
+  resize: none;
+  height: 150px;
 }
 
 .add-new-product-form__container .button-container {
-display: flex;
-justify-content: flex-start;
-margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1rem;
 }
 
-.add-new-product-form__container .button-container button{
-border: none;
-outline: none;
-padding: 0.3rem 0.5rem;
-border-radius: 8px;
-cursor: pointer;
-background-color: var(--color-primary);
-color: var(--color-white);
-transition: all ease 0.3s;
+.add-new-product-form__container .button-container button {
+  border: none;
+  outline: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transition: all ease 0.3s;
 }
-.add-new-product-form__container .button-container button:hover{
-background-color: var(--color-primary-dark);
-transition: all ease 0.3s;
+.add-new-product-form__container .button-container button:hover {
+  background-color: var(--color-primary-dark);
+  transition: all ease 0.3s;
+}
 
+.css-y2ff7i-MuiPaper-root-MuiTableContainer-root {
+  margin-top: 1rem;
+}
+.css-1fnc9ax-MuiButtonBase-root-MuiButton-root {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.5rem 1rem;
+  border-radius: 8px !important;
+  transition: all ease 0.3s;
+  margin: 0 0.5rem !important;
+  padding: 8px 16px !important;
+}
+.css-1fnc9ax-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: var(--color-primary-dark);
+  transition: all ease 0.3s;
+  color: #fff;
+}
+.delete-button {
+  border: 1px solid var(--color-danger) !important;
+}
+.delete-button:hover {
+  background-color: var(--color-danger) !important;
+  color: #fff !important;
 }

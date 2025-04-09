@@ -1,110 +1,255 @@
-import React,{ useState } from 'react'
-import "./Products.css"
-import Modal from '../../Components/Modals/Modal'
-import Table from '../../Components/Table/Table'
+import React, { useState, useEffect } from "react";
+import "./Products.css";
+import Modal from "../../Components/Modals/Modal";
+import MainTable from "../../Components/Table/Table";
+import { ButtonGroup, Button, Link } from "@mui/material";
 
 export default function Products() {
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [deleteId, setDeleteId] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [rows, setRows] = useState([]);
+  let [productName, setProductName] = useState("");
+  let [productPrice, setProductPrice] = useState(null);
+  let [productRate, setProductRate] = useState(5);
+  let [productStock, setProductStock] = useState(null);
+  let [productSells, setProductSells] = useState(null);
+  let [productColors, setProductColors] = useState(1);
+  let [productDescription, setProductDescription] = useState("");
 
-  const [isShowModal, setIsShowModal] = useState(false) 
-  const [products,setProducts] = useState([])
-  const [productName, setProductName] = useState("")
-  const [productPrice, setProductPrice] = useState(null)
-  const [productPopularity, setProductPopularity] = useState(5)
-  const [productStock, setProductStock] = useState(null)
-  const [productSells, setProductSells] = useState(null)
-  const [productColors, setProductColors] = useState(1)
-  const [productdescription, setProductDescription] = useState("")
+  //getting products from data center
+  useEffect(() => {
+    fetch(
+      `https://persian-cms-8bd51-default-rtdb.europe-west1.firebasedatabase.app/products.json`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        let productsArray = Object.keys(data).map((key) => {
+          return {
+            id: key,
+            ...data[key],
+          };
+        });
+        setRows(productsArray);
+      });
+  }, [products]);
 
+  //table columns
+  let columns = [
+    { field: "name", headerName: "نام محصول", align: "right" },
+    { field: "price", headerName: "قیمت محصول", align: "right" },
+    { field: "stock", headerName: "موجودی محصول", align: "right" },
+    { field: "sells", headerName: "فروش محصول", align: "right" },
+    { field: "colors", headerName: "رنگ بندی ", align: "right" },
+    { field: "description", headerName: " توضیحات", align: "right" },
+    { field: "rate", headerName: "آمتیاز محصول", align: "right" },
+    {
+      field: "actions",
+      headerName: "Actions ",
+      align: "left",
+      renderCell: (row) => (
+        <ButtonGroup>
+          <Button
+            className="details-button"
+            variant="primary"
+            size="small"
+            style={{ border: "1px solid var(--color-primary)" }}
+          >
+            جزییات
+          </Button>
 
+          <Button
+            className="edit-button"
+            variant="danger"
+            size="small"
+            style={{ border: "1px solid var(--color-primary)" }}
+            onClick={() => onEdit(row.id)}
+          >
+            ویرایش
+          </Button>
 
-  const handleAddNewProduct = () => {
-    
+          <Button
+            className="delete-button"
+            variant="danger"
+            size="small"
+            style={{ color: "red" }}
+            onClick={() => {
+              setIsShowModal(true);
+              setModalType("delete");
+              setDeleteId(row.id);
+            }}
+          >
+            حذف
+          </Button>
+        </ButtonGroup>
+      ),
+    },
+  ];
 
+  const addNewProductFunction = () => {
     let newProduct = {
       name: productName,
       price: productPrice,
-      stock: productPopularity,
-      popularity: productStock,
+      stock: productStock,
+      rate: productRate,
       sells: productSells,
       colors: productColors,
-      description:productdescription,
-    }
+      description: productDescription,
+    };
 
+    fetch(
+      `https://persian-cms-8bd51-default-rtdb.europe-west1.firebasedatabase.app/products.json`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts([...products, newProduct]);
 
-    setProducts([...products,newProduct])
+        setProductName("");
+        setProductPrice("");
+        setProductRate("");
+        setProductStock("");
+        setProductSells("");
+        setProductColors("");
+        setProductDescription("");
 
-    fetch(`https://persian-cms-8bd51-default-rtdb.europe-west1.firebasedatabase.app/products.json`,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(newProduct)
-    }).then(res => res.json())
-    .then(data => {
-      console.log(data)
-      setIsShowModal(false)
-    })
+        setIsShowModal(false);
+      });
+  };
 
-  }
+  const onEdit = (id) => {};
+
+  let deleteFunction = (id) => {
+    fetch(
+      `https://persian-cms-8bd51-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((res) => {
+      if (res.ok) {
+        console.log("حذف شد")
+        setProducts(products.filter((product) => product.id !== id ))
+        setIsShowModal(false)
+        setModalType("");
+        setDeleteId(null);
+        console.log(isShowModal)
+      }
+    });
+  };
+
   const handleCancelModal = () => {
-    console.log("حذف شد")
-    setIsShowModal(false)
-  }
+    setIsShowModal(false);
+    setModalType("");
+    setDeleteId(null);
+  };
 
   return (
     <div className="products-wrapper">
       <div className="products-container">
         <h1>اضافه کردن محصول جدید</h1>
-        <div className='add-new-product-form__container'>
-          
-          <form className='add-new-product-form'>
+        <div className="add-new-product-form__container">
+          <form className="add-new-product-form">
             <div className="form-group">
-            
-              <input type="text" id="product-name" onChange={e => setProductName(e.target.value)} placeholder=' نام محصول را وارد کنید' />
-            </div>
-            <div className="form-group">
-              
-              <input type="text" id="product-price" onChange={e => setProductPrice(e.target.value)} placeholder="قیمت محصول را وارد کنید" />
-            </div>
-            <div className="form-group">
-              
-              <input type="text" id="product-stock" onChange={e => setProductStock(e.target.value)} placeholder='موجودی محصول را وارد کنید ' />
+              <input
+                value={productName}
+                type="text"
+                id="product-name"
+                onChange={(e) => setProductName(e.target.value)}
+                placeholder=" نام محصول را وارد کنید"
+              />
             </div>
             <div className="form-group">
-              
-              <input type="text" id="product-popularity" onChange={e => setProductPopularity(e.target.value) } placeholder='میزان محبوبیت محصول را مشخص کنید ' />
+              <input
+                value={productPrice}
+                type="text"
+                id="product-price"
+                onChange={(e) => setProductPrice(e.target.value)}
+                placeholder="قیمت محصول را وارد کنید"
+              />
             </div>
             <div className="form-group">
-             
-              <input id="product-sells" onChange={e => setProductSells(e.target.value)} placeholder='  میزان فروش محصول را وارد کنید'></input>
+              <input
+                value={productStock}
+                type="text"
+                id="product-stock"
+                onChange={(e) => setProductStock(e.target.value)}
+                placeholder="موجودی محصول را وارد کنید "
+              />
             </div>
             <div className="form-group">
-              
-              <input id="product-colors" onChange={e => setProductColors(e.target.value)} placeholder='تعداد رنگ بندی محصول را وارد کنید'></input>
+              <input
+                value={productRate}
+                type="text"
+                id="product-popularity"
+                onChange={(e) => setProductRate(e.target.value)}
+                placeholder="میزان محبوبیت محصول را مشخص کنید "
+              />
             </div>
-             <div className="form-group">
-              <textarea id="product-description" onChange={e => setProductDescription(e.target.value)} placeholder='توضیحات خود را بنویسید '></textarea>
+            <div className="form-group">
+              <input
+                value={productSells}
+                id="product-sells"
+                onChange={(e) => setProductSells(e.target.value)}
+                placeholder="  میزان فروش محصول را وارد کنید"
+              ></input>
             </div>
-            
+            <div className="form-group">
+              <input
+                value={productColors}
+                id="product-colors"
+                onChange={(e) => setProductColors(e.target.value)}
+                placeholder="تعداد رنگ بندی محصول را وارد کنید"
+              ></input>
+            </div>
+            <div className="form-group">
+              <textarea
+                value={productDescription}
+                id="product-description"
+                onChange={(e) => setProductDescription(e.target.value)}
+                placeholder="توضیحات خود را بنویسید "
+              ></textarea>
+            </div>
           </form>
           <div className="button-container">
-            <button type='submit' onClick={() => setIsShowModal(true)}>اضافه کردن</button>
+            <button
+              type="submit"
+              onClick={() => {
+                setModalType("add");
+                setIsShowModal(true);
+              }}
+            >
+              اضافه کردن
+            </button>
           </div>
         </div>
-        <Table />
-        {isShowModal && <Modal isShow={isShowModal} message="ایا میخواهید محصول اضافه شود؟" submitAction={handleAddNewProduct} cancelAction={handleCancelModal}/>}
-        {/* <ul className="product-list">
-          <li className="product-item">
-            <div className="product-name">محصول 1</div>
-            <div className="product-price">100000</div>
-            <div className="product-stock">50</div>
-            <div className="product-popularity">4.5</div>
-            <div className="product-sells">200</div>
-            <div className="product-colors">3</div>
-            <button className='delete-product'>حذف محصول</button>
-          </li>
-        </ul> */}
       </div>
+      <MainTable columns={columns} rows={rows} />
+      {(isShowModal && modalType == "add" && (
+        <Modal
+          isShow={isShowModal}
+          message="ایا میخواهید محصول اضافه شود؟"
+          submitAction={addNewProductFunction}
+          cancelAction={handleCancelModal}
+        />
+      )) ||
+        (modalType == "delete" && (
+          <Modal
+            isShow={isShowModal}
+            message="ایا مطمینید که میخواهید این محصول را حذف کنید؟"
+            submitAction={() => deleteFunction(deleteId)}
+            cancelAction={handleCancelModal}
+          />
+        ))}
     </div>
-  )
+  );
 }
