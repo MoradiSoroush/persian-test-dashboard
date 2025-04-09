@@ -42,7 +42,7 @@ export default function Products() {
     { field: "stock", headerName: "موجودی محصول", align: "right" },
     { field: "sells", headerName: "فروش محصول", align: "right" },
     { field: "colors", headerName: "رنگ بندی ", align: "right" },
-    { field: "description", headerName: " توضیحات", align: "right" },
+    // { field: "description", headerName: " توضیحات", align: "right" },
     { field: "rate", headerName: "آمتیاز محصول", align: "right" },
     {
       field: "actions",
