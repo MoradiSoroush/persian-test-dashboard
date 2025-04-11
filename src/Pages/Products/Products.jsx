@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Products.css";
 import Modal from "../../Components/Modals/Modal";
+import EditModal from "../../Components/EditModal/EditModal";
 import MainTable from "../../Components/Table/Table";
 import { ButtonGroup, Button, Link } from "@mui/material";
 
@@ -8,6 +9,7 @@ export default function Products() {
   const [isShowModal, setIsShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
   const [deleteId, setDeleteId] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [products, setProducts] = useState([]);
   const [rows, setRows] = useState([]);
   let [productName, setProductName] = useState("");
@@ -64,7 +66,11 @@ export default function Products() {
             variant="danger"
             size="small"
             style={{ border: "1px solid var(--color-primary)" }}
-            onClick={() => onEdit(row.id)}
+            onClick={() => {
+              setIsShowModal(true)
+              setModalType("edit")
+             setEditId(row.id) 
+            } }
           >
             ویرایش
           </Button>
@@ -124,7 +130,7 @@ export default function Products() {
       });
   };
 
-  const onEdit = (id) => {};
+  const editModalFunction = (id) => {};
 
   let deleteFunction = (id) => {
     fetch(
@@ -137,12 +143,12 @@ export default function Products() {
       }
     ).then((res) => {
       if (res.ok) {
-        console.log("حذف شد")
-        setProducts(products.filter((product) => product.id !== id ))
-        setIsShowModal(false)
+        console.log("حذف شد");
+        setProducts(products.filter((product) => product.id !== id));
+        setIsShowModal(false);
         setModalType("");
         setDeleteId(null);
-        console.log(isShowModal)
+        console.log(isShowModal);
       }
     });
   };
@@ -153,6 +159,13 @@ export default function Products() {
     setDeleteId(null);
   };
 
+
+
+  const handleCloseModal =() => {
+    setIsShowModal(false);
+    setModalType("")
+    setEditId(null)
+  }
   return (
     <div className="products-wrapper">
       <div className="products-container">
@@ -250,6 +263,39 @@ export default function Products() {
             cancelAction={handleCancelModal}
           />
         ))}
+
+      {isShowModal && modalType == "edit" && (
+        <EditModal closeModal={handleCloseModal} isShowModal={isShowModal}>
+          <div className="form-group product-title">
+            <input
+              type="text"
+              className="product-title__input"
+              placeholder="عنوان محصول را وارد کنید"
+            />
+          </div>
+          <div className="form-group product-price">
+            <input
+              type="text"
+              className="product-title__input"
+              placeholder="قیمت محصول را وارد کنید"
+            />
+          </div>
+          <div className="form-group product-stock">
+            <input
+              type="text"
+              className="product-title__input"
+              placeholder="موجودی محصول را وارد کنید"
+            />
+          </div>
+          <div className="form-group product-sells">
+            <input
+              type="text"
+              className="product-title__input"
+              placeholder="تعداد فروش محصول را وارد کنید"
+            />
+          </div>
+        </EditModal>
+      )}
     </div>
   );
 }

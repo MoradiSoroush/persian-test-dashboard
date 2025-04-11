@@ -1,7 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./ModalsStyles.css";
-
 
 export default function DeleteModal({isShow,message,submitAction,cancelAction}) {
 
