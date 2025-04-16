@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
 }
-.modal-box {
+.modal-container .active{
   background-color: beige;
   display: flex;
   flex-direction: column;
@@ -18,8 +18,7 @@
   padding: 2rem 1rem;
   border-radius: 12px;
 }
-.modal-buttons__container {
-}
+
 .modal-button {
   padding: 0.3rem 1.5rem;
   border-radius: 3px;

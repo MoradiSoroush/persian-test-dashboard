@@ -1,9 +1,9 @@
 import React from 'react'
 import "./Errorbox.css"
 
-export default function ErrorBox({msg}) {
+export default function ErrorBox({message}) {
   return (
-    <div className='error-msg'>{msg}</div>
+    <div className='error-msg'>{message}</div>
   )
 }
 

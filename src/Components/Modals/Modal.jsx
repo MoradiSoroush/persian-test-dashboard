@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./ModalsStyles.css";
 
-export default function DeleteModal({isShow,message,submitAction,cancelAction}) {
 
-  console.log(message)
+
+export default function Modal({isShow,message,submitAction,cancelAction}) {
+
+  console.log(isShow)
   return (
     ReactDOM.createPortal(  <div  className="modal-container">
       <div className={isShow ? "modal-box active" : "modal-box"}>
